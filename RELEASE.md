@@ -18,8 +18,9 @@ V201-Speech-To-Text-2.0.0.exe
 2. Run the installer.
 3. Review the installation prompt.
 4. Click **I Agree** to continue.
-5. Wait for the installation to finish.
-6. Launch **Speech-to-Text Application** from the Start Menu or desktop shortcut.
+5. Watch the installation progress page while files and setup steps are shown in the live details area.
+6. On the final page, choose whether to launch the app after setup finishes.
+7. If you do not launch it from the installer, open **Speech-to-Text Application** from the Start Menu or desktop shortcut.
 
 The app installs for the current Windows user under:
 
@@ -32,6 +33,8 @@ The installer creates a current-user registry key:
 ```text
 HKCU\Software\FNBUBBLES420 Org\Speech-to-Text Application
 ```
+
+The installer shows a live details area during setup so users can see install actions while the progress bar runs.
 
 ## First Run
 

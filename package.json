@@ -23,7 +23,7 @@
     "obs",
     "whisper"
   ],
-  "author": "FNBUBBLES420 Org 501(c)(3)",
+  "author": "FNBUBBLES420 Org",
   "license": "MIT",
   "dependencies": {
     "electron-store": "^11.0.2",
@@ -68,10 +68,11 @@
     "nsis": {
       "installerIcon": "assets/icons/app-icon.ico",
       "uninstallerIcon": "assets/icons/app-icon.ico",
-      "oneClick": true,
+      "oneClick": false,
       "perMachine": false,
       "allowElevation": false,
       "allowToChangeInstallationDirectory": false,
+      "runAfterFinish": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true
     }

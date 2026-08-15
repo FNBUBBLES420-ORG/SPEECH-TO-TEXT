@@ -51,6 +51,7 @@
 - Updated README documentation for privacy, local transcription, OBS integration, manual update downloads, settings persistence, installer behavior, and development workflow.
 - Updated `to-do.txt` into an honest implementation and verification checklist.
 - Updated installer resources with application icons and installation agreement text.
+- Updated the Windows installer to show the NSIS live details area, progress bar, setup step messages, and a user choice for launching the app after setup finishes.
 - Updated app packaging to include generated icon assets and `build/installer.nsh`.
 - Updated the manual update flow so downloads are still user-initiated, but the app can save the selected installer to Downloads and let the user run it manually.
 - Updated Settings UI with persistent save/export/import controls.
