@@ -1,0 +1,52 @@
+Speech-to-Text Application
+FNBUBBLES420 Org
+
+End User Installation Notice
+
+Please read this notice before installing Speech-to-Text Application.
+By clicking "I Agree" or continuing the installation, you agree to install
+and use this application under the terms provided with the application.
+
+Privacy and Local Processing
+
+Speech-to-Text Application is designed as a privacy-focused desktop
+transcription tool. The application does not include telemetry, analytics,
+advertising, tracking, profiling, or automatic cloud upload.
+
+Microphone access is used only when you choose to start listening.
+Transcripts, settings, logs, downloaded models, and OBS output settings are
+stored locally on your Windows user account unless you explicitly export or
+share them.
+
+Manual Updates
+
+This application uses manual updates. It does not automatically check for
+updates at startup, does not download updates in the background, does not
+install updates silently, and does not restart itself to update.
+
+If you choose to check for updates, the application may contact the official
+GitHub Releases page for this project. If a newer installer is available,
+you may choose to download it. You must then run the installer yourself and
+complete the normal Windows installation prompts.
+
+Installation Scope
+
+This installer installs the application for the current Windows user under
+the user's LocalAppData application folder. It does not install a background
+update service and does not create scheduled update tasks.
+
+Use and Responsibility
+
+This application is intended for accessibility, live transcription, captions,
+meetings, classes, streaming, OBS/Streamlabs text output, and everyday
+speech-to-text use.
+
+It must not be used to inject into games, access game memory, bypass
+anti-cheat systems, or interfere with other software.
+
+License
+
+The full license terms are included with the application in the bundled
+LICENSE file. If you do not agree with these terms, cancel the installation.
+
+Click "I Agree" to continue installing Speech-to-Text Application.

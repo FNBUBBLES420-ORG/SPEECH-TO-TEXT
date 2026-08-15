@@ -1,0 +1,82 @@
+{
+  "name": "speech-to-text-application",
+  "version": "2.0.0",
+  "description": "Privacy-focused local speech-to-text desktop application for Windows.",
+  "type": "module",
+  "main": "src/main/main.js",
+  "scripts": {
+    "start": "node scripts/start-electron.cjs",
+    "dev": "node scripts/start-electron.cjs --dev",
+    "test": "vitest run",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "prepare": "npm run lint && npm test",
+    "pack": "electron-builder --dir --win --x64",
+    "build": "electron-builder --win --x64",
+    "dist": "electron-builder --win --x64 --publish never",
+    "dist:win": "electron-builder --win --x64 --publish never"
+  },
+  "keywords": [
+    "electron",
+    "speech-to-text",
+    "accessibility",
+    "obs",
+    "whisper"
+  ],
+  "author": "FNBUBBLES420 Org 501(c)(3)",
+  "license": "SEE LICENSE IN LICENSE",
+  "dependencies": {
+    "electron-store": "^11.0.2",
+    "semver": "^7.8.5"
+  },
+  "optionalDependencies": {
+    "@fugood/whisper.node": "^1.1.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "electron": "^43.4.0",
+    "electron-builder": "^26.15.3",
+    "eslint": "^10.8.0",
+    "prettier": "^3.9.6",
+    "vitest": "^4.1.10"
+  },
+  "build": {
+    "appId": "org.fnbubbles420.speech-to-text",
+    "productName": "Speech-to-Text Application",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "src/**/*",
+      "assets/**/*",
+      "package.json",
+      "LICENSE"
+    ],
+    "win": {
+      "icon": "assets/icons/app-icon.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "forceCodeSigning": false,
+      "signExecutable": false
+    },
+    "nsis": {
+      "installerIcon": "assets/icons/app-icon.ico",
+      "uninstallerIcon": "assets/icons/app-icon.ico",
+      "oneClick": true,
+      "perMachine": false,
+      "allowElevation": false,
+      "allowToChangeInstallationDirectory": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  },
+  "allowScripts": {
+    "@fugood/whisper.node@1.1.1": true
+  }
+}

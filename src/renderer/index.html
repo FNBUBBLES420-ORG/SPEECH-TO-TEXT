@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src https://api.github.com https://huggingface.co; media-src 'self' blob:;"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Speech-to-Text Application</title>
+    <link rel="icon" href="../../assets/icons/app-icon-32.png" />
+    <link rel="stylesheet" href="./styles/app.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <div class="app-titlebar">
+        <img src="../../assets/icons/app-icon-24.png" alt="" />
+        <span>Speech-to-Text Application</span>
+      </div>
+      <aside class="sidebar" aria-label="Primary navigation">
+        <div class="brand">
+          <img class="brand-mark" src="../../assets/icons/app-icon-64.png" alt="" />
+          <div>
+            <strong>Speech-to-Text</strong>
+            <span>FNBUBBLES420 Org</span>
+          </div>
+        </div>
+        <nav id="nav"></nav>
+      </aside>
+      <main class="main">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow" id="section-eyebrow">Dashboard</p>
+            <h1 id="section-title">Live captions, locally first</h1>
+          </div>
+          <div class="topbar-actions">
+            <span class="status-pill" id="engine-status">Offline ready</span>
+            <button class="icon-button" id="theme-toggle" title="Toggle theme" aria-label="Toggle theme">
+              ◐
+            </button>
+            <button class="danger" id="exit-app" title="Exit application">Exit</button>
+          </div>
+        </header>
+        <section id="content" class="content" aria-live="polite"></section>
+      </main>
+    </div>
+    <div id="toast-region" class="toast-region" aria-live="assertive"></div>
+    <dialog id="confirm-dialog">
+      <form method="dialog">
+        <h2 id="confirm-title">Confirm</h2>
+        <p id="confirm-message"></p>
+        <menu>
+          <button value="cancel">Cancel</button>
+          <button class="danger" value="confirm">Confirm</button>
+        </menu>
+      </form>
+    </dialog>
+    <dialog id="input-dialog">
+      <form method="dialog">
+        <h2 id="input-title">Rename</h2>
+        <label class="field">
+          <span id="input-label">Title</span>
+          <input id="input-value" maxlength="120" />
+        </label>
+        <menu>
+          <button value="cancel">Cancel</button>
+          <button class="primary" value="confirm">Save</button>
+        </menu>
+      </form>
+    </dialog>
+    <dialog id="first-run-dialog" class="wizard">
+      <form method="dialog">
+        <p class="eyebrow" id="wizard-step">Welcome</p>
+        <h2 id="wizard-title">Welcome</h2>
+        <p id="wizard-copy"></p>
+        <menu>
+          <button id="wizard-skip" value="skip">Skip</button>
+          <button id="wizard-next" class="primary" value="next">Next</button>
+        </menu>
+      </form>
+    </dialog>
+    <script type="module" src="./scripts/app.js"></script>
+  </body>
+</html>
