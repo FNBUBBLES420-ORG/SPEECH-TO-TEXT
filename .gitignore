@@ -51,6 +51,7 @@ crash-dumps/
 *.dmp
 
 # User-generated application data
+to-do.txt
 models/
 transcripts/
 user-data/
