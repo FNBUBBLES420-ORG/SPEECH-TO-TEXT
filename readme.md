@@ -272,7 +272,7 @@ FNBUBBLES420 Org
 
 ## Repository
 
-https://github.com/FNBUBBLES420-ORG/Speech-to-Text-Application
+https://github.com/FNBUBBLES420-ORG/SPEECH-TO-TEXT
 
 ## License
 

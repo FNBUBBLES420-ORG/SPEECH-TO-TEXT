@@ -11,10 +11,10 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "prepare": "npm run lint && npm test",
-    "pack": "electron-builder --dir --win --x64",
-    "build": "electron-builder --win --x64",
-    "dist": "electron-builder --win --x64 --publish never",
-    "dist:win": "electron-builder --win --x64 --publish never"
+    "pack": "node scripts/enable-nsis-details.cjs && electron-builder --dir --win --x64",
+    "build": "node scripts/enable-nsis-details.cjs && electron-builder --win --x64",
+    "dist": "node scripts/enable-nsis-details.cjs && electron-builder --win --x64 --publish never",
+    "dist:win": "node scripts/enable-nsis-details.cjs && electron-builder --win --x64 --publish never"
   },
   "keywords": [
     "electron",

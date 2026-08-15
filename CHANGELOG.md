@@ -37,13 +37,18 @@
 
 - Fixed Electron startup when `ELECTRON_RUN_AS_NODE=1` is set by clearing it only for the child Electron process.
 - Fixed app close behavior by adding a real full-exit path instead of only minimizing to tray.
+- Fixed tray Settings behavior so it restores and focuses the main window before navigating.
 - Fixed installer uninstall behavior so the HKCU registry key and install directory are removed during uninstall.
 - Fixed installer LocalAppData behavior by forcing current-user install mode.
 - Fixed the previous placeholder UI that looked generated and sparse.
 - Fixed update checks so they scan the newest available version tag rather than relying only on GitHub’s `/latest` endpoint.
 - Fixed update download safety by validating trusted GitHub release URLs and installer file types.
+- Fixed manual update checks to use the new official `FNBUBBLES420-ORG/SPEECH-TO-TEXT` release source.
+- Fixed manual update error text so private, missing, or unpublished releases show a clear message instead of the raw Electron IPC error.
 - Fixed settings resilience by backing up settings and restoring them if the main store is missing.
 - Fixed local transcription audio handling by sending raw PCM samples instead of mislabeled recorded blobs.
+- Fixed live microphone capture by loading the renderer audio worklet from the correct packaged path.
+- Fixed Start Listening so microphone capture only begins after the local transcription backend is ready, with cleanup if startup fails.
 - Fixed path validation to use directory containment checks instead of unsafe string-prefix checks.
 
 ### Updated
@@ -52,6 +57,7 @@
 - Updated `to-do.txt` into an honest implementation and verification checklist.
 - Updated installer resources with application icons and installation agreement text.
 - Updated the Windows installer to show the NSIS live details area, progress bar, setup step messages, and a user choice for launching the app after setup finishes.
+- Updated Windows build scripts to patch electron-builder's NSIS install section so file extraction details are printed during installation instead of leaving the details area blank.
 - Updated app packaging to include generated icon assets and `build/installer.nsh`.
 - Updated the manual update flow so downloads are still user-initiated, but the app can save the selected installer to Downloads and let the user run it manually.
 - Updated Settings UI with persistent save/export/import controls.

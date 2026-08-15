@@ -34,7 +34,7 @@ The installer creates a current-user registry key:
 HKCU\Software\FNBUBBLES420 Org\Speech-to-Text Application
 ```
 
-The installer shows a live details area during setup so users can see install actions while the progress bar runs.
+The installer shows a live details area during setup so users can see file extraction and setup actions while the progress bar runs.
 
 ## First Run
 

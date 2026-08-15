@@ -1,8 +1,9 @@
 export const APP_NAME = 'Speech-to-Text Application';
 export const ORG_NAME = 'FNBUBBLES420 Org';
 export const TRUSTED_RELEASE_HOSTS = new Set(['github.com']);
-export const OFFICIAL_RELEASE_URL =
-  'https://github.com/FNBUBBLES420-ORG/Speech-to-Text-Application/releases';
+export const OFFICIAL_REPOSITORY = 'FNBUBBLES420-ORG/SPEECH-TO-TEXT';
+export const OFFICIAL_RELEASE_URL = `https://github.com/${OFFICIAL_REPOSITORY}/releases`;
+export const GITHUB_RELEASES_API_URL = `https://api.github.com/repos/${OFFICIAL_REPOSITORY}/releases`;
 
 export const SUPPORTED_EXPORT_FORMATS = new Set(['txt', 'srt', 'vtt', 'json']);
 

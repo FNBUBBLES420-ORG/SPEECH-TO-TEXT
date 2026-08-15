@@ -15,7 +15,7 @@ The legacy Python application has been replaced by the Electron application and 
 
 Please report security vulnerabilities privately through the GitHub repository security reporting process:
 
-https://github.com/FNBUBBLES420-ORG/Speech-to-Text-Application/security/advisories
+https://github.com/FNBUBBLES420-ORG/SPEECH-TO-TEXT/security/advisories
 
 Do not post vulnerability details in public issues, discussions, pull requests, screenshots, or social media.
 

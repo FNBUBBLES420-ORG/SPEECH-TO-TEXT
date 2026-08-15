@@ -532,27 +532,32 @@ function renderAbout() {
 
 async function startListening() {
   try {
-    const deviceId = state.settings.audio.selectedDeviceId;
-    state.stream = await navigator.mediaDevices.getUserMedia({
-      audio: deviceId === 'default' ? true : { deviceId: { exact: deviceId } }
-    });
     const result = await api.transcription.start({
       model: state.settings.transcription.defaultModel,
       language: state.settings.transcription.language
     });
-    if (!result.ready) toast('Install a local Whisper model before transcription will produce text.');
+    if (!result.ready) {
+      await api.transcription.stop();
+      toast('Install a local Whisper model before starting transcription.');
+      return;
+    }
+    const deviceId = state.settings.audio.selectedDeviceId;
+    state.stream = await navigator.mediaDevices.getUserMedia({
+      audio: deviceId === 'default' ? true : { deviceId: { exact: deviceId } }
+    });
     state.listening = true;
     state.startedAt = Date.now();
     await startPcmCapture();
     renderLive();
   } catch (error) {
+    await cleanupListeningSession();
     toast(userMessage(error));
   }
 }
 
 async function startPcmCapture() {
   state.audioContext = new AudioContext();
-  await state.audioContext.audioWorklet.addModule('./audio-worklet.js');
+  await state.audioContext.audioWorklet.addModule('./scripts/audio-worklet.js');
   const source = state.audioContext.createMediaStreamSource(state.stream);
   state.analyser = state.audioContext.createAnalyser();
   state.workletNode = new AudioWorkletNode(state.audioContext, 'pcm-capture-processor');
@@ -588,18 +593,23 @@ async function resumeListening() {
 }
 
 async function stopListening() {
-  state.workletNode?.disconnect();
-  state.stream?.getTracks().forEach((track) => track.stop());
-  state.audioContext?.close();
-  clearInterval(state.meterTimer);
-  clearInterval(state.elapsedTimer);
+  await cleanupListeningSession();
   await api.transcription.stop();
   state.listening = false;
   state.paused = false;
+  renderLive();
+}
+
+async function cleanupListeningSession() {
+  state.workletNode?.disconnect();
+  state.stream?.getTracks().forEach((track) => track.stop());
+  await state.audioContext?.close().catch(() => {});
+  clearInterval(state.meterTimer);
+  clearInterval(state.elapsedTimer);
+  state.stream = null;
   state.workletNode = null;
   state.audioContext = null;
   state.analyser = null;
-  renderLive();
 }
 
 function addSegment(segment) {

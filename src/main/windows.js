@@ -81,7 +81,13 @@ export function createTray({ mainWindow, settings, services }) {
           label: 'Caption Window',
           click: () => mainWindow.webContents.send('caption:toggle')
         },
-        { label: 'Settings', click: () => mainWindow.webContents.send('navigation:open', 'settings') },
+        {
+          label: 'Settings',
+          click: () => {
+            showMainWindow(mainWindow);
+            mainWindow.webContents.send('navigation:open', 'settings');
+          }
+        },
         { type: 'separator' },
         {
           label: 'Quit',
@@ -95,8 +101,14 @@ export function createTray({ mainWindow, settings, services }) {
   };
 
   updateMenu();
-  tray.on('click', () => mainWindow.show());
+  tray.on('click', () => showMainWindow(mainWindow));
   return tray;
+}
+
+function showMainWindow(mainWindow) {
+  if (mainWindow.isMinimized()) mainWindow.restore();
+  mainWindow.show();
+  mainWindow.focus();
 }
 
 export function createCaptionWindow({ settings, logger }) {

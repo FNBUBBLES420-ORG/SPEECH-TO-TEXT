@@ -10,7 +10,7 @@ describe('manual update helpers', () => {
   });
 
   it('allows only trusted release URLs', () => {
-    expect(validateTrustedReleaseUrl('https://github.com/FNBUBBLES420-ORG/Speech-to-Text-Application/releases/tag/v2.1.0')).toBe(
+    expect(validateTrustedReleaseUrl('https://github.com/FNBUBBLES420-ORG/SPEECH-TO-TEXT/releases/tag/v2.1.0')).toBe(
       true
     );
     expect(validateTrustedReleaseUrl('http://github.com/example')).toBe(false);
@@ -20,7 +20,7 @@ describe('manual update helpers', () => {
   it('normalizes GitHub release payloads', () => {
     const info = normalizeReleaseInfo('2.0.0', {
       tag_name: 'v2.1.0',
-      html_url: 'https://github.com/FNBUBBLES420-ORG/Speech-to-Text-Application/releases/tag/v2.1.0',
+      html_url: 'https://github.com/FNBUBBLES420-ORG/SPEECH-TO-TEXT/releases/tag/v2.1.0',
       published_at: '2026-08-15T00:00:00Z',
       body: 'Notes'
     });
