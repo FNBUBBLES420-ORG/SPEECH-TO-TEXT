@@ -1,6 +1,0 @@
-version: 2
-updates:
-  - package-ecosystem: "pip"
-    directory: "/" # The root directory of your project where your requirements.txt is located
-    schedule:
-      interval: "daily" # Dependabot will check for updates weekly
