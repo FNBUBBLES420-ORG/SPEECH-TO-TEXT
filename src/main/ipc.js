@@ -10,12 +10,12 @@ import {
   validateTrustedReleaseUrl,
   validateUserWritablePath
 } from '../shared/validators.js';
-import { createCaptionWindow, getCaptionWindow, listDisplays } from './windows.js';
+import { createCaptionWindow, createTray, getCaptionWindow, listDisplays } from './windows.js';
 import { TranscriptionService } from '../services/transcription/transcriptionService.js';
 import { fetchLatestRelease } from '../services/models/updateFetch.js';
 import { normalizeReleaseInfo } from '../shared/updates.js';
 
-export function registerIpcHandlers({ app, mainWindow, services }) {
+export function registerIpcHandlers({ app, mainWindow, services, trayControls }) {
   const transcription = new TranscriptionService(services, mainWindow);
 
   ipcMain.handle('app:get-bootstrap', async () => ({
@@ -35,7 +35,9 @@ export function registerIpcHandlers({ app, mainWindow, services }) {
   });
 
   ipcMain.handle('settings:update', async (_event, patch) => {
+    const previousGeneral = services.settings.get().general;
     const settings = services.settings.update(patch);
+    syncTraySetting({ app, mainWindow, services, trayControls, previousGeneral, nextGeneral: settings.general });
     services.shortcuts.register(mainWindow);
     return settings;
   });
@@ -287,4 +289,19 @@ function sanitizeName(name) {
 
 function sanitizeInstallerName(name) {
   return String(name).replace(/[<>:"/\\|?*]/g, '-').slice(0, 140);
+}
+
+function syncTraySetting({ app, mainWindow, services, trayControls, previousGeneral, nextGeneral }) {
+  if (!trayControls || previousGeneral.trayEnabled === nextGeneral.trayEnabled) return;
+
+  const existingTray = trayControls.get();
+  if (!nextGeneral.trayEnabled) {
+    existingTray?.destroy();
+    trayControls.set(null);
+    return;
+  }
+
+  if (!existingTray) {
+    trayControls.set(createTray({ app, mainWindow, settings: services.settings, services }));
+  }
 }

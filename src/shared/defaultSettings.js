@@ -1,7 +1,7 @@
 export const defaultSettings = Object.freeze({
   general: {
     firstRunComplete: false,
-    closeBehavior: 'tray',
+    closeBehavior: 'exit',
     trayEnabled: true,
     launchOnStartup: false
   },

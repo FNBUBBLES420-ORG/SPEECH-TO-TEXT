@@ -41,7 +41,8 @@ export function validateSettings(settings) {
   next.accessibility.captionFontSize = clampNumber(next.accessibility.captionFontSize, 18, 80, 32);
   next.audio.sensitivity = clampNumber(next.audio.sensitivity, 0, 1, 0.45);
   next.transcription.vadThreshold = clampNumber(next.transcription.vadThreshold, 0, 1, 0.02);
-  if (!allowedCloseBehaviors.has(next.general.closeBehavior)) next.general.closeBehavior = 'tray';
+  if (!allowedCloseBehaviors.has(next.general.closeBehavior)) next.general.closeBehavior = 'exit';
+  if (!next.general.trayEnabled && next.general.closeBehavior === 'tray') next.general.closeBehavior = 'exit';
   if (!allowedAlignments.has(next.obs.captionWindow.alignment)) next.obs.captionWindow.alignment = 'center';
   next.obs.captionWindow.opacity = clampNumber(next.obs.captionWindow.opacity, 0.1, 1, 0.72);
   next.obs.captionWindow.maxLines = Math.round(clampNumber(next.obs.captionWindow.maxLines, 1, 8, 3));

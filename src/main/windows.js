@@ -48,8 +48,8 @@ export function createMainWindow({ settings, logger }) {
   });
 
   win.on('close', (event) => {
-    const closeBehavior = settings.get().general.closeBehavior;
-    if (!app.isQuitting && closeBehavior === 'tray') {
+    const generalSettings = settings.get().general;
+    if (!app.isQuitting && generalSettings.closeBehavior === 'tray' && generalSettings.trayEnabled) {
       event.preventDefault();
       win.hide();
     }

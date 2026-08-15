@@ -29,7 +29,18 @@ async function bootstrap() {
   await Promise.all([settings.init(), transcripts.init(), models.init(), logger.init()]);
 
   mainWindow = createMainWindow({ app, settings, logger });
-  registerIpcHandlers({ app, mainWindow, services });
+  registerIpcHandlers({
+    app,
+    mainWindow,
+    services,
+    trayControls: {
+      get: () => tray,
+      set: (nextTray) => {
+        tray = nextTray;
+        globalThis.captionPulseTray = tray;
+      }
+    }
+  });
   tray = createTray({ app, mainWindow, settings, services });
   globalThis.captionPulseTray = tray;
   shortcuts.register(mainWindow);

@@ -407,8 +407,9 @@ function renderSettings() {
       </section>
       <section class="panel">
         <h2>General</h2>
-        <div class="field"><label>Close behavior</label><select id="close-behavior"><option value="tray">Minimize to tray</option><option value="exit">Exit application</option></select></div>
+        <div class="field"><label>Close behavior</label><select id="close-behavior"><option value="exit">Exit application</option><option value="tray">Minimize to tray</option></select></div>
         <label class="switch"><input id="tray-enabled" type="checkbox" ${state.settings.general.trayEnabled ? 'checked' : ''}/> System tray</label>
+        <p class="muted">If System tray is off, closing the window exits the app.</p>
       </section>
       <section class="panel">
         <h2>Shortcuts</h2>
@@ -433,7 +434,9 @@ function renderSettings() {
       </section>
     </div>`;
   document.querySelector('#theme').value = state.settings.appearance.theme;
-  document.querySelector('#close-behavior').value = state.settings.general.closeBehavior;
+  document.querySelector('#close-behavior').value = state.settings.general.trayEnabled
+    ? state.settings.general.closeBehavior
+    : 'exit';
   document.querySelector('#theme').addEventListener('change', async (event) => {
     state.settings = await api.settings.update({ appearance: { theme: event.target.value } });
     applyTheme();
@@ -452,10 +455,17 @@ function renderSettings() {
     state.settings = await api.settings.update({ transcription: { vadThreshold: event.target.value } });
   });
   document.querySelector('#close-behavior').addEventListener('change', async (event) => {
-    state.settings = await api.settings.update({ general: { closeBehavior: event.target.value } });
+    const closeBehavior = event.target.value;
+    const general =
+      closeBehavior === 'tray' ? { closeBehavior, trayEnabled: true } : { closeBehavior };
+    state.settings = await api.settings.update({ general });
+    document.querySelector('#tray-enabled').checked = state.settings.general.trayEnabled;
   });
   document.querySelector('#tray-enabled').addEventListener('change', async (event) => {
-    state.settings = await api.settings.update({ general: { trayEnabled: event.target.checked } });
+    const trayEnabled = event.target.checked;
+    const general = trayEnabled ? { trayEnabled } : { trayEnabled, closeBehavior: 'exit' };
+    state.settings = await api.settings.update({ general });
+    document.querySelector('#close-behavior').value = state.settings.general.closeBehavior;
   });
   content.querySelectorAll('[data-shortcut]').forEach((input) =>
     input.addEventListener('change', async () => {
@@ -957,7 +967,12 @@ function inputAction(titleText, labelText, value = '') {
 }
 
 function userMessage(error) {
-  return error?.message || 'Something went wrong. Check diagnostics for details.';
+  return (
+    error?.message
+      ?.replace(/^Error invoking remote method '[^']+': Error:\s*/u, '')
+      .replace(/^Error invoking remote method "[^"]+": Error:\s*/u, '') ||
+    'Something went wrong. Check diagnostics for details.'
+  );
 }
 
 function escapeHtml(value) {
