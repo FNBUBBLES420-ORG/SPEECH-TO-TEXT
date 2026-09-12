@@ -5,6 +5,26 @@ on:
   pull_request:
 
 jobs:
+  security:
+    runs-on: ubuntu-latest
+    env:
+      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Snyk CLI
+        if: env.SNYK_TOKEN != ''
+        uses: snyk/actions/setup@master
+      - name: Run Snyk dependency scan
+        if: env.SNYK_TOKEN != ''
+        env:
+          SNYK_TOKEN: ${{ env.SNYK_TOKEN }}
+        run: snyk test --severity-threshold=high --file=package-lock.json
+      - name: Upload Snyk Code scan
+        if: env.SNYK_TOKEN != ''
+        env:
+          SNYK_TOKEN: ${{ env.SNYK_TOKEN }}
+        run: snyk code test --report --project-name="speech-to-text-application" --severity-threshold=high
+
   build:
     runs-on: windows-latest
     steps:
