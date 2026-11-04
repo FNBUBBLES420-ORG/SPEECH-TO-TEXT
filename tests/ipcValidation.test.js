@@ -27,8 +27,9 @@ describe('IPC input validation', () => {
   });
 
   it('allows selected user profile export paths', () => {
-    expect(validateUserWritablePath('C:/Users/frost/Documents/captions.txt', 'C:/Users/frost/AppData/App')).toBe(
-      true
-    );
+    const userProfile = process.env.USERPROFILE || process.env.HOME;
+    const exportPath = path.join(userProfile, 'Documents', 'captions.txt');
+    const appDataPath = path.join(userProfile, 'AppData', 'App');
+    expect(validateUserWritablePath(exportPath, appDataPath)).toBe(true);
   });
 });
