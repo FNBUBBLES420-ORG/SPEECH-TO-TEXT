@@ -12,7 +12,7 @@
     "format": "prettier --write .",
     "prepare": "npm run lint && npm test",
     "pack": "node scripts/enable-nsis-details.cjs && electron-builder --dir --win --x64",
-    "build": "node scripts/enable-nsis-details.cjs && electron-builder --win --x64",
+    "build": "node scripts/enable-nsis-details.cjs && electron-builder --win --x64 --publish never",
     "dist": "node scripts/enable-nsis-details.cjs && electron-builder --win --x64 --publish never",
     "dist:win": "node scripts/enable-nsis-details.cjs && electron-builder --win --x64 --publish never"
   },
