@@ -18,12 +18,12 @@ jobs:
         if: env.SNYK_TOKEN != ''
         env:
           SNYK_TOKEN: ${{ env.SNYK_TOKEN }}
-        run: snyk test --severity-threshold=high --file=package-lock.json
+        run: snyk test --severity-threshold=low --file=package-lock.json
       - name: Upload Snyk Code scan
         if: env.SNYK_TOKEN != ''
         env:
           SNYK_TOKEN: ${{ env.SNYK_TOKEN }}
-        run: snyk code test --report --project-name="speech-to-text-application" --severity-threshold=high
+        run: snyk code test --report --project-name="speech-to-text-application" --severity-threshold=low
 
   build:
     runs-on: windows-latest
