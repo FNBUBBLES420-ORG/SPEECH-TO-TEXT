@@ -1,5 +1,5 @@
 import path from 'node:path';
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import {
   assertString,
   isInsideDirectory,
@@ -8,6 +8,10 @@ import {
 } from '../src/shared/validators.js';
 
 describe('IPC input validation', () => {
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+
   it('keeps only allowed payload keys', () => {
     expect(validateIpcPayload({ id: '1', title: 'A', path: '../secret' }, ['id', 'title'])).toEqual({
       id: '1',
@@ -27,6 +31,8 @@ describe('IPC input validation', () => {
   });
 
   it('allows selected user profile export paths', () => {
+    vi.stubEnv('USERPROFILE', 'C:/Users/frost');
+    vi.stubEnv('HOME', 'C:/Users/frost');
     expect(validateUserWritablePath('C:/Users/frost/Documents/captions.txt', 'C:/Users/frost/AppData/App')).toBe(
       true
     );
